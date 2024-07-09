@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="refresh" content="150; URL=">
+    <link rel="stylesheet" type="text/css" href="sample1-1.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
+</head>
+
+<body>
+    <p class="txt4" align="center">2FエントランスCO2濃度</p>
+    <div id="co2"></div>
+    <center>
+        <div style="position:relative; width:700px; height:1400px;">
+            <canvas id="stage1"></canvas>
+        </div>
+    </center>
+    <div id="output_csv"></div>
+    <script src="./sample1-2.js"></script>
+    <script>
+        var request = new XMLHttpRequest();
+        request.open('GET', 'https://proxy.cep-hd-dlp.chuden.co.jp/data-n8suh89sqhcjo5g5/data-api/latest?id=CgETViZ2&subscription-key=0e35a874f02a4887adc1ed0b2561f645', true);
+        request.responseType = 'json';
+        request.send();
+        request.onload = function () {
+            var sens_num = 6; // センサ番号
+            var jsonData = this.response;
+            var data = JSON.stringify(jsonData, null, ' ');
+            jsons = JSON.parse(data);
+            console.log(jsons); 
+            console.log(jsons[sens_num].co2); 
+            var cmnt = "---";
+            var obj = document.getElementById("co2");
+            if (jsons[sens_num].co2 >= 1000) {
+                obj.style.backgroundColor = "#ff8844";
+                cmnt = "<hr><p align = \"center\" class = \"txt4\">危険</p>";
+            } else {
+                obj.style.backgroundColor = "#88cc88";
+                cmnt = "<hr><p align = \"center\" class = \"txt4\">安全</p>";
+            }
+            co2.innerHTML = "<p align = \"center\" class = \"txt1\"><br></p><p align =\"center\" class = \"txt5\" > " + jsons[sens_num].co2 + "ppm </p> " + cmnt ;
+        }
+        request.onerror = function () {
+            console.log("受信失敗");
+        }
+    </script>
+</body>
+</html>
