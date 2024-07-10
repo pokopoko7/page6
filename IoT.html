@@ -25,7 +25,7 @@
         request.responseType = 'json';
         request.send();
         request.onload = function () {
-            var sens_num = 5; // センサ番号
+            var sens_num = 7; // センサ番号
             var jsonData = this.response;
             var data = JSON.stringify(jsonData, null, ' ');
             jsons = JSON.parse(data);
