@@ -83,7 +83,7 @@ function convertArray(data) {
   const dataString = data.split('\r\n');
   for (let i = 0; i < dataString.length; i++) {
     var data=dataString[i].split(',');
-    if (data[1]=='Ｒ３ーＢ１Ｆ_ＥＨ'){ 
+    if (data[1]=='Ｒ３ーB１Ｆ_ＥＨ'){ 
       dataArray.push(data.slice(3,7).map(parseFloat));
     }
   }
